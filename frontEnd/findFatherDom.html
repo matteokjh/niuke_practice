@@ -1,0 +1,75 @@
+<!-- 查找两个 dom 结点的最近共同父结点，可以包括自身 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最近共同父结点</title>
+    <style>
+        body {
+            display: flex;
+        }
+        body > div {
+            width: 500px;
+            height: 900px;
+            background-color: aqua;
+            margin: 10px
+        }
+        body > div div {
+            width: 400px;
+            height: 400px;
+            background-color: bisque;
+        }
+        body > div div div {
+            width: 200px;
+            height: 200px;
+            background-color:chocolate;
+        }
+    </style>
+</head>
+<body>
+    <p>body</p>
+    <div id="a">
+        <p>a</p>
+        <div id="a1">
+            <p>a1</p></div>
+        <div id="a2">
+            <p>a2</p>
+            <div id="a21">
+                <p>a21</p></div>
+        </div>
+    </div>
+    <div id="b">
+        <p>b</p>
+        <div id="b1">
+            <p>b1</p></div>
+        <div id="b2">
+            <p>b2</p>
+            <div id="b21">
+                <p>b21</p></div>
+        </div>
+    </div>
+    <script>
+        let nodeA = document.querySelector('#a21')
+        let nodeB = document.querySelector('#a21')
+        let m = new Set([nodeA,nodeB])
+        // 寻找最近共同父结点
+        function findParent(nodeA, nodeB) {
+            let pA = nodeA
+            let pB = nodeB
+            while(1) {
+                pA = pA.parentNode
+                pB = pB.parentNode
+                if(m.has(pA)) {
+                    return pA
+                }
+                m.add(pA)
+                if(m.has(pB)) {
+                    return pB
+                }
+                m.add(pB)
+            }
+        }
+    </script>
+</body>
+</html>
